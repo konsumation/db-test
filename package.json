@@ -1,5 +1,5 @@
 {
-  "name": "konsum-db-test",
+  "name": "@konsumation/db-test",
   "version": "0.0.0-semantic-release",
   "publishConfig": {
     "access": "public"
@@ -49,5 +49,8 @@
       "arlac77/template-javascript-component",
       "arlac77/template-typescript"
     ]
+  },
+  "dependencies": {
+    "@konsumation/model": "^1.0.0"
   }
 }
