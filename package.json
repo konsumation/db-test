@@ -6,7 +6,7 @@
   },
   "exports": {
     ".": {
-      "default": "{{main}}"
+      "default": "./src/master.mjs"
     }
   },
   "description": "test support for konsumation dbs",
