@@ -1,0 +1,10 @@
+*.dump
+types
+.test
+*.node
+bun.lockb
+/node_modules/**
+.tmp
+build
+.DS_Store
+*.log
