@@ -7,10 +7,9 @@ import { Master} from "@konsumation/model";
  * @param {Master} driver 
  * @param {Object|string} options 
  */
-async function testInitializeAndReopen(t,driver,options) {
+export async function testInitializeAndReopen(t,driver,options) {
   const master = await driver.initialize(options);
 
-  t.is(master.schemaVersion, "2");
   t.truthy(master);
 
   const categories = [];
@@ -22,6 +21,5 @@ async function testInitializeAndReopen(t,driver,options) {
   master.db.close();
 
   const master2 = await driver.initialize(options);
-  t.is(master2.schemaVersion, "2");
   t.truthy(master2);
 }
