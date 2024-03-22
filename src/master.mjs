@@ -1,13 +1,12 @@
-
-import { Master} from "@konsumation/model";
+import { Master } from "@konsumation/model";
 
 /**
- * 
- * @param {*} t 
- * @param {Master} driver 
- * @param {Object|string} options 
+ *
+ * @param {*} t
+ * @param {Master} driver
+ * @param {Object|string} options
  */
-export async function testInitializeAndReopen(t,driver,options) {
+export async function testInitializeAndReopen(t, driver, options) {
   const master = await driver.initialize(options);
 
   t.truthy(master);
