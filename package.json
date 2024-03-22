@@ -51,6 +51,6 @@
     ]
   },
   "dependencies": {
-    "@konsumation/model": "^1.0.3"
+    "@konsumation/model": "^1.0.4"
   }
 }
