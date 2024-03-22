@@ -17,7 +17,7 @@ export async function testInitializeAndReopen(t, driver, options) {
   }
   t.deepEqual(categories, []);
 
-  master.db.close();
+  master.close();
 
   const master2 = await driver.initialize(options);
   t.truthy(master2);
