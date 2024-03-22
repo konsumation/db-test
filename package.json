@@ -28,6 +28,9 @@
     "lint:docs": "documentation lint ./src/**/*.mjs",
     "lint:typescript": "tsc --allowJs --checkJs --noEmit --resolveJsonModule -t esnext -m esnext --module nodenext --moduleResolution nodenext ./src**/*.mjs"
   },
+  "dependencies": {
+    "@konsumation/model": "^1.0.4"
+  },
   "devDependencies": {
     "ava": "^6.1.2",
     "c8": "^9.1.0",
@@ -49,8 +52,5 @@
       "arlac77/template-javascript-component",
       "arlac77/template-typescript"
     ]
-  },
-  "dependencies": {
-    "@konsumation/model": "^1.0.4"
   }
 }
