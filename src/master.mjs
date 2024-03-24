@@ -1,4 +1,4 @@
-import { Master } from "@konsumation/model";
+import { Master, SCHEMA_VERSION_CURRENT } from "@konsumation/model";
 
 /**
  *
@@ -10,6 +10,7 @@ export async function testInitializeAndReopen(t, driver, options) {
   const master = await driver.initialize(options);
 
   t.truthy(master);
+  t.is(master.schemaVersion, SCHEMA_VERSION_CURRENT);
 
   const categories = [];
   for await (const c of master.categories()) {
@@ -21,4 +22,5 @@ export async function testInitializeAndReopen(t, driver, options) {
 
   const master2 = await driver.initialize(options);
   t.truthy(master2);
+  t.is(master2.schemaVersion, SCHEMA_VERSION_CURRENT);
 }
