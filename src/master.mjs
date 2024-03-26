@@ -15,7 +15,7 @@ export async function testInitializeAndReopen(t, driver, options) {
   t.is(master.schemaVersion, SCHEMA_VERSION_CURRENT);
 
   const categories = [];
-  for await (const c of master.categories()) {
+  for await (const c of master.categories(master.context)) {
     categories.push(c);
   }
   t.deepEqual(categories, []);
@@ -41,7 +41,7 @@ export async function testRestoreVersion2(t, driver, options) {
   t.is(numberOfValues, 3 * 10);
 
   const categories = [];
-  for await (const c of master.categories()) {
+  for await (const c of master.categories(master.context)) {
     categories.push(c);
   }
 
@@ -51,7 +51,7 @@ export async function testRestoreVersion2(t, driver, options) {
   );
 
   const meters = [];
-  for await (const m of categories[0].meters(master.db)) {
+  for await (const m of categories[0].meters(master.context)) {
     meters.push(m);
   }
   t.deepEqual(
