@@ -59,3 +59,12 @@ export async function testRestoreVersion2(t, driver, options) {
     ["M-0", "M-1"]
   );
 }
+
+export function testCategoryConstructor(t, categoryFactory) {
+  const c = new categoryFactory({
+    name: `CAT-constructor`,
+    description: `Category insert`
+  });
+  t.is(c.name, "CAT-constructor");
+  t.is(c.description, "Category insert");
+}
