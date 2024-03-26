@@ -62,9 +62,25 @@ export async function testRestoreVersion2(t, driver, options) {
 
 export function testCategoryConstructor(t, categoryFactory) {
   const c = new categoryFactory({
-    name: `CAT-constructor`,
-    description: `Category insert`
+    name: "CAT-constructor",
+    description: "Category insert"
   });
   t.is(c.name, "CAT-constructor");
   t.is(c.description, "Category insert");
+}
+
+export function testMeterConstructor(t, meterFactory) {
+  const c = new meterFactory({
+    serial: "M-constructor",
+    description: "Meter insert"
+  });
+  t.is(c.serial, "M-constructor");
+  t.is(c.description, "Meter insert");
+}
+
+export function testNoteConstructor(t, noteFactory) {
+  const c = new noteFactory({
+    description: "Note insert"
+  });
+  t.is(c.description, "Note insert");
 }
