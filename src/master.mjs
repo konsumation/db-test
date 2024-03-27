@@ -65,9 +65,9 @@ export async function testRestoreVersion2(t, driver, options) {
 
 export function testCategoryConstructor(t, factory, extraValues) {
   const values = {
-    ...extraValues,
     name: "CAT-constructor",
-    description: "Category insert"
+    description: "Category insert",
+    ...extraValues
   };
   const c = new factory(values);
   for (const [k, v] of Object.entries(values)) {
@@ -78,12 +78,12 @@ export function testCategoryConstructor(t, factory, extraValues) {
 
 export function testMeterConstructor(t, factory, extraValues) {
   const values = {
-    ...extraValues,
     serial: "12345",
     description: `meter for category CAT1`,
     unit: "kwh",
     fractionalDigits: 2,
-    validFrom: new Date()
+    validFrom: new Date(),
+    ...extraValues,
   };
 
   const c = new factory(values);
@@ -95,8 +95,8 @@ export function testMeterConstructor(t, factory, extraValues) {
 
 export function testNoteConstructor(t, factory, extraValues) {
   const values = {
-    ...extraValues,
-    description: "Note insert"
+    description: "Note insert",
+    ...extraValues
   };
 
   const c = new factory(values);
