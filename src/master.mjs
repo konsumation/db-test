@@ -12,6 +12,7 @@ export async function testInitializeAndReopen(t, driver, options) {
   const master = await driver.initialize(options);
 
   t.truthy(master);
+  //t.truthy(master.context);
   t.is(master.schemaVersion, SCHEMA_VERSION_CURRENT);
 
   const categories = [];
@@ -21,11 +22,13 @@ export async function testInitializeAndReopen(t, driver, options) {
   t.deepEqual(categories, []);
 
   await master.close();
+  t.falsy(master.context);
 
   const master2 = await driver.initialize(options);
   t.truthy(master2);
   t.is(master2.schemaVersion, SCHEMA_VERSION_CURRENT);
   await master2.close();
+  t.falsy(master2.context);
 }
 
 export async function testRestoreVersion2(t, driver, options) {
@@ -60,27 +63,45 @@ export async function testRestoreVersion2(t, driver, options) {
   );
 }
 
-export function testCategoryConstructor(t, categoryFactory) {
-  const c = new categoryFactory({
+export function testCategoryConstructor(t, factory, extraValues) {
+  const values = {
+    ...extraValues,
     name: "CAT-constructor",
     description: "Category insert"
-  });
-  t.is(c.name, "CAT-constructor");
-  t.is(c.description, "Category insert");
+  };
+  const c = new factory(values);
+  for (const [k, v] of Object.entries(values)) {
+    t.is(c[k], v, `attribute ${k}`);
+  }
+  t.deepEqual(c.attributeValues, values);
 }
 
-export function testMeterConstructor(t, meterFactory) {
-  const c = new meterFactory({
-    serial: "M-constructor",
-    description: "Meter insert"
-  });
-  t.is(c.serial, "M-constructor");
-  t.is(c.description, "Meter insert");
+export function testMeterConstructor(t, factory, extraValues) {
+  const values = {
+    ...extraValues,
+    serial: "12345",
+    description: `meter for category CAT1`,
+    unit: "kwh",
+    fractionalDigits: 2,
+    validFrom: new Date()
+  };
+
+  const c = new factory(values);
+  for (const [k, v] of Object.entries(values)) {
+    t.is(c[k], v, `attribute ${k}`);
+  }
+  t.deepEqual(c.attributeValues, values);
 }
 
-export function testNoteConstructor(t, noteFactory) {
-  const c = new noteFactory({
+export function testNoteConstructor(t, factory, extraValues) {
+  const values = {
+    ...extraValues,
     description: "Note insert"
-  });
-  t.is(c.description, "Note insert");
+  };
+
+  const c = new factory(values);
+  for (const [k, v] of Object.entries(values)) {
+    t.is(c[k], v, `attribute ${k}`);
+  }
+  t.deepEqual(c.attributeValues, values);
 }
