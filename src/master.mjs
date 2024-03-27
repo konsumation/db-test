@@ -1,6 +1,6 @@
-import { Master, SCHEMA_VERSION_CURRENT } from "@konsumation/model";
 import { createReadStream } from "node:fs";
 import { fileURLToPath } from "node:url";
+import { Master, SCHEMA_VERSION_CURRENT } from "@konsumation/model";
 
 /**
  *
@@ -36,12 +36,13 @@ export async function testRestoreVersion2(t, driver, options) {
 
   const input = createReadStream(
     fileURLToPath(new URL("fixtures/database-version-2.txt", import.meta.url)),
-    { encoding: "utf8" }
+    "utf8"
   );
-  const { numberOfValues, numberOfCategories } = await master.restore(input);
 
-  t.is(numberOfCategories, 3);
-  t.is(numberOfValues, 3 * 10);
+  const statistics = await master.fromText(input);
+
+  t.is(statistics.category, 3);
+  t.is(statistics.value, 3 * 10);
 
   const categories = [];
   for await (const c of master.categories(master.context)) {
@@ -83,7 +84,7 @@ export function testMeterConstructor(t, factory, extraValues) {
     unit: "kwh",
     fractionalDigits: 2,
     validFrom: new Date(),
-    ...extraValues,
+    ...extraValues
   };
 
   const c = new factory(values);
