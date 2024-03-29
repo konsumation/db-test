@@ -7,7 +7,7 @@
   "exports": {
     ".": {
       "browser": "./src/test-all.mjs",
-      "default": "./src/test-all.mjs"
+      "default": "./src/test-node.mjs"
     }
   },
   "description": "test support for konsumation dbs",
