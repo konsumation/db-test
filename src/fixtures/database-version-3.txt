@@ -29,8 +29,7 @@ description=blizzard
 [meter "M-1"]
 category=CAT-0
 serial=1
-unit=kWh
-fractionalDigits=2
+fractionalDigits=3
 
 [category "CAT-1"]
 description=mains power 1
