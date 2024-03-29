@@ -12,8 +12,8 @@ export async function testRestoreVersion2(t, driver, options) {
 
   const statistics = await master.fromText(input);
 
-  t.is(statistics.category, 3);
-  t.is(statistics.value, 3 * 10);
+  t.is(statistics.category, 3, "# of categories");
+  t.is(statistics.value, 3 * 10, "# of values");
 
   const categories = [];
   for await (const c of master.categories(master.context)) {
@@ -45,8 +45,8 @@ export async function testRestoreVersion3(t, driver, options) {
 
   const statistics = await master.fromText(input);
 
-  t.is(statistics.category, 3);
-  t.is(statistics.value, 3 * 10);
+  t.is(statistics.category, 3, "# of categories");
+  t.is(statistics.value, 3 * 10, "# of values");
 
   const categories = [];
   for await (const c of master.categories(master.context)) {
