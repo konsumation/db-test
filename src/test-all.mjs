@@ -1,4 +1,8 @@
-import { Master, SCHEMA_VERSION_CURRENT } from "@konsumation/model";
+import {
+  Master,
+  SCHEMA_VERSION_CURRENT,
+  fractionalDigits
+} from "@konsumation/model";
 
 /**
  *
@@ -30,43 +34,59 @@ export async function testInitializeAndReopen(t, driver, options) {
 }
 
 function testAttributes(t, factory, values) {
-  const c = new factory(values);
+  const object = new factory(values);
 
   const inverseMapping = Object.fromEntries(
     Object.entries(factory.attributeNameMapping).map(kv => [kv[1], kv[0]])
   );
 
-  for (let [k, v] of Object.entries(values)) {
-    if (inverseMapping[k]) {
-      t.deepEqual(
-        c[inverseMapping[k]],
-        v,
-        `attribute ${k}(${inverseMapping[k]})`
-      );
-    } else {
-      t.deepEqual(c[k], v, `attribute ${k}`);
+  if (values) {
+    for (let [k, v] of Object.entries(values)) {
+      if (inverseMapping[k]) {
+        t.deepEqual(
+          object[inverseMapping[k]],
+          v,
+          `${factory.name} attribute ${k}(${inverseMapping[k]})`
+        );
+      } else {
+        t.deepEqual(object[k], v, `${factory.name} attribute ${k}`);
+      }
     }
+
+    values = Object.fromEntries(
+      Object.entries(values).filter(
+        kv => factory.attributeNameMapping[kv[0]] === undefined
+      )
+    );
+
+    t.deepEqual(object.attributeValues, values);
   }
 
-  values = Object.fromEntries(
-    Object.entries(values).filter(
-      kv => factory.attributeNameMapping[kv[0]] === undefined
-    )
-  );
-
-  t.deepEqual(c.attributeValues, values);
+  return object;
 }
 
 export function testCategoryConstructor(t, factory, extraValues) {
-  testAttributes(t, factory, {
+  testAttributes(t, factory, undefined);
+
+  const object = testAttributes(t, factory, {
     name: "CAT-constructor",
     description: "Category insert",
     ...extraValues
   });
+
+  let o = new factory();
+
+  t.is(
+    o.fractionalDigits,
+    fractionalDigits.default,
+    "default fractionalDigits"
+  );
 }
 
 export function testMeterConstructor(t, factory, extraValues) {
-  testAttributes(t, factory, {
+  testAttributes(t, factory, undefined);
+
+  const object = testAttributes(t, factory, {
     serial: "12345",
     description: `meter for category CAT1`,
     unit: "kwh",
@@ -77,6 +97,8 @@ export function testMeterConstructor(t, factory, extraValues) {
 }
 
 export function testNoteConstructor(t, factory, extraValues) {
+  testAttributes(t, factory, undefined);
+
   testAttributes(t, factory, {
     description: "Note insert",
     ...extraValues
