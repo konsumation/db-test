@@ -5,13 +5,11 @@ description=mains power 0
 unit=kWh
 fractionalDigits=2
 
-[note "001596181798832"]
-category=CAT-0
-description=blizzard
-
 [meter "M-0"]
 category=CAT-0
-serial=0
+serial=10000
+unit=kWh
+fractionalDigits=2
 
 1596181539632 77.34
 1596181626032 78.34
@@ -24,18 +22,24 @@ serial=0
 1596182230832 85.34
 1596182317232 86.34
 
+[note "001596181798832"]
+meter=M-0
+description=blizzard
+
 [meter "M-1"]
 category=CAT-0
 serial=1
+unit=kWh
+fractionalDigits=2
 
 [category "CAT-1"]
 description=mains power 1
-unit=kWh
-fractionalDigits=2
 
 [meter "M-1"]
 category=CAT-1
 serial=2
+unit=kWh
+fractionalDigits=2
 
 1596181539634 78.34
 1596181626034 79.34
@@ -50,12 +54,12 @@ serial=2
 
 [category "CAT-2"]
 description=mains power 2
-unit=kWh
-fractionalDigits=2
 
 [meter "M-3"]
 category=CAT-2
 serial=3
+unit=kWh
+fractionalDigits=2
 
 1596181539635 79.34
 1596181626035 80.34
