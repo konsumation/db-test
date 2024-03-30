@@ -33,6 +33,39 @@ export async function testInitializeAndReopen(t, driver, options) {
   t.falsy(master2.context);
 }
 
+/**
+ * Create and test several Categories.
+ * @param {*} t 
+ * @param {Master} master 
+ * @param {*} categoryFactory 
+ * @param {string[]} names 
+ * @param {*} extraAsserts 
+ * @returns {Promise<Category[]>}
+ */
+export async function testCreateCategories(
+  t,
+  master,
+  categoryFactory,
+  names,
+  extraAsserts = async (t, category) => {}
+) {
+  const categories = [];
+
+  for (const name of names) {
+    const description = `Category ${name}`;
+    const category = new categoryFactory({
+      name,
+      description
+    });
+    await category.write(master.context);
+    t.is(category.name, name);
+    t.is(category.description, description);
+    await extraAsserts(t, category);
+  }
+
+  return categories;
+}
+
 function testAttributes(t, factory, values) {
   const object = new factory(values);
 
