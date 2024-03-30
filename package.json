@@ -15,6 +15,9 @@
     {
       "name": "Markus Felten",
       "email": "markus.felten@gmx.de"
+    },
+    {
+      "name": "Konstantin Karpman"
     }
   ],
   "license": "BSD-2-Clause",
@@ -41,17 +44,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/konsumation/konsum-db-test.git"
+    "url": "git+https://github.com/konsumation/db-test.git"
   },
   "bugs": {
-    "url": "https://github.com/konsumation/konsum-db-test/issues"
+    "url": "https://github.com/konsumation/db-test/issues"
   },
-  "homepage": "https://github.com/konsumation/konsum-db-test#readme",
+  "homepage": "https://github.com/konsumation/db-test#readme",
   "template": {
     "inheritFrom": [
       "arlac77/template-arlac77-github",
+      "arlac77/template-github-action",
       "arlac77/template-javascript-component",
-      "arlac77/template-typescript"
+      "arlac77/template-typescript",
+      "arlac77/template-vscode",
+      "konsumation/template"
     ]
   }
 }
