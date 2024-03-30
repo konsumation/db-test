@@ -14,6 +14,7 @@ export async function testInitializeAndReopen(t, driver, options) {
   const master = await driver.initialize(options);
 
   t.truthy(master);
+  t.is(master.description,options.description, "description");
   //t.truthy(master.context);
   t.is(master.schemaVersion, SCHEMA_VERSION_CURRENT);
 
