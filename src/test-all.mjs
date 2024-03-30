@@ -35,11 +35,11 @@ export async function testInitializeAndReopen(t, driver, options) {
 
 /**
  * Create and test several Categories.
- * @param {*} t 
- * @param {Master} master 
- * @param {*} categoryFactory 
- * @param {string[]} names 
- * @param {*} extraAsserts 
+ * @param {*} t
+ * @param {Master} master
+ * @param {*} categoryFactory
+ * @param {string[]} names
+ * @param {*} extraAsserts
  * @returns {Promise<Category[]>}
  */
 export async function testCreateCategories(
