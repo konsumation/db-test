@@ -36,6 +36,22 @@ export async function testInitializeAndReopen(t, driver, options, name) {
   t.falsy(master2.context);
 }
 
+export async function createData(master, categoryNames, meterNames) {
+  const context = master.context;
+
+  for (const name of categoryNames) {
+    const category = await master.addCategory(context, {
+      name,
+      unit: "kWh",
+      fractionalDigits: 3,
+      description: "mains power"
+    });
+    for (const name of meterNames) {
+      await category.addMeter(context, {});
+    }
+  }
+}
+
 /**
  * Create and test several Categories.
  * @param {*} t
@@ -83,15 +99,15 @@ export async function testCreateCategories(
  * @param {*} extraAsserts
  * @returns {Promise<Meter[]>}
  */
-export async function testCreateMeters(t,
+export async function testCreateMeters(
+  t,
   master,
   meterFactory,
   names,
   category,
   attributes,
   extraAsserts = async (t, meter) => {}
-)
-{
+) {
   const meters = [];
 
   for (const name of names) {
@@ -122,15 +138,15 @@ export async function testCreateMeters(t,
  * @param {*} extraAsserts
  * @returns {Promise<Note[]>}
  */
-export async function testCreateNotes(t,
+export async function testCreateNotes(
+  t,
   master,
   noteFactory,
   names,
   meter,
   attributes,
   extraAsserts = async (t, meter) => {}
-)
-{
+) {
   const notes = [];
 
   for (const name of names) {
