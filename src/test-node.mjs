@@ -16,6 +16,9 @@ export async function testRestoreUnsupportedVersion(t, driver, options) {
   } catch (e) {
     t.truthy(e.message.match(/Unsupported schema version/));
   }
+  finally {
+    await master.close();
+  }
 }
 
 export async function testRestoreVersion2(t, driver, options) {
@@ -49,6 +52,8 @@ export async function testRestoreVersion2(t, driver, options) {
     meters.map(m => m.name),
     ["M-0", "M-1"]
   );
+
+    await master.close();
 }
 
 export async function testRestoreVersion3(t, driver, options) {
@@ -83,4 +88,6 @@ export async function testRestoreVersion3(t, driver, options) {
     meters.map(m => m.name),
     ["M-0", "M-1"]
   );
+
+  await master.close();
 }
