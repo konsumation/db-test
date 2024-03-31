@@ -112,6 +112,45 @@ export async function testCreateMeters(t,
   return meters;
 }
 
+/**
+ * Create and test several Categories.
+ * @param {*} t
+ * @param {Master} master
+ * @param {*} meterFactory
+ * @param {string[]} names
+ * @param {Object} attributes
+ * @param {*} extraAsserts
+ * @returns {Promise<Note[]>}
+ */
+export async function testCreateNotes(t,
+  master,
+  noteFactory,
+  names,
+  meter,
+  attributes,
+  extraAsserts = async (t, meter) => {}
+)
+{
+  const notes = [];
+
+  for (const name of names) {
+    const description = `Note ${name}`;
+    const note = new noteFactory({
+      name,
+      description,
+      meter,
+      ...attributes
+    });
+    notes.push(note);
+    await note.write(master.context);
+    t.is(note.name, name);
+    t.is(note.description, description);
+    await extraAsserts(t, meter);
+  }
+
+  return notes;
+}
+
 function testAttributes(t, factory, values) {
   const object = new factory(values);
 
