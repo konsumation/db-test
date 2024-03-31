@@ -42,6 +42,7 @@ export async function testInitializeAndReopen(t, driver, options, name) {
  * @param {Master} master
  * @param {*} categoryFactory
  * @param {string[]} names
+ * @param {Object} extraAttributes
  * @param {*} extraAsserts
  * @returns {Promise<Category[]>}
  */
@@ -50,6 +51,7 @@ export async function testCreateCategories(
   master,
   categoryFactory,
   names,
+  attributes,
   extraAsserts = async (t, category) => {}
 ) {
   const categories = [];
@@ -58,7 +60,8 @@ export async function testCreateCategories(
     const description = `Category ${name}`;
     const category = new categoryFactory({
       name,
-      description
+      description,
+      ...attributes
     });
     await category.write(master.context);
     t.is(category.name, name);
@@ -67,6 +70,44 @@ export async function testCreateCategories(
   }
 
   return categories;
+}
+
+/**
+ * Create and test several Categories.
+ * @param {*} t
+ * @param {Master} master
+ * @param {*} meterFactory
+ * @param {string[]} names
+ * @param {Object} attributes
+ * @param {*} extraAsserts
+ * @returns {Promise<Meter[]>}
+ */
+export async function testCreateMeters(t,
+  master,
+  meterFactory,
+  names,
+  category,
+  attributes,
+  extraAsserts = async (t, meter) => {}
+)
+{
+  const meters = [];
+
+  for (const name of names) {
+    const description = `Meter ${name}`;
+    const meter = new meterFactory({
+      name,
+      description,
+      category,
+      ...attributes
+    });
+    await meter.write(master.context);
+    t.is(meter.name, name);
+    t.is(meter.description, description);
+    await extraAsserts(t, meter);
+  }
+
+  return meters;
 }
 
 function testAttributes(t, factory, values) {
@@ -102,6 +143,8 @@ function testAttributes(t, factory, values) {
 }
 
 export function testCategoryConstructor(t, factory, extraValues) {
+  t.is(factory.typeName, "category", "typeName");
+
   testAttributes(t, factory, undefined);
 
   const object = testAttributes(t, factory, {
@@ -112,6 +155,8 @@ export function testCategoryConstructor(t, factory, extraValues) {
   });
 
   let o = new factory();
+
+  t.is(o.typeName, "category", "typeName");
 
   t.is(
     o.fractionalDigits,
