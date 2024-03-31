@@ -2,6 +2,22 @@ import { createReadStream } from "node:fs";
 import { fileURLToPath } from "node:url";
 export * from "./test-all.mjs";
 
+export async function testRestoreUnsupportedVersion(t, driver, options) {
+  const master = await driver.initialize(options);
+
+  const input = createReadStream(
+    fileURLToPath(new URL("fixtures/database-version-0.txt", import.meta.url)),
+    "utf8"
+  );
+
+  try {
+    await master.restore(input);
+    t.fail("should throw");
+  } catch (e) {
+    t.is(e.message, "Unsupported schema version 0 only supporting 2,3");
+  }
+};
+
 export async function testRestoreVersion2(t, driver, options) {
   const master = await driver.initialize(options);
 
