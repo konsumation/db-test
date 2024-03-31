@@ -63,6 +63,7 @@ export async function testCreateCategories(
       description,
       ...attributes
     });
+    categories.push(category);
     await category.write(master.context);
     t.is(category.name, name);
     t.is(category.description, description);
@@ -101,6 +102,7 @@ export async function testCreateMeters(t,
       category,
       ...attributes
     });
+    meters.push(meter);
     await meter.write(master.context);
     t.is(meter.name, name);
     t.is(meter.description, description);
