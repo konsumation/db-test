@@ -91,7 +91,7 @@ function testAttributes(t, factory, values) {
 
     values = Object.fromEntries(
       Object.entries(values).filter(
-        kv => factory.attributeNameMapping[kv[0]] === undefined
+        kv => factory.attributeNameMapping[kv[0]] === undefined // && factory.attributes[kv[0]].default !== kv[1]
       )
     );
 
@@ -107,6 +107,7 @@ export function testCategoryConstructor(t, factory, extraValues) {
   const object = testAttributes(t, factory, {
     name: "CAT-constructor",
     description: "Category insert",
+    fractionalDigits: fractionalDigits.default, // TODO without defaults
     ...extraValues
   });
 
