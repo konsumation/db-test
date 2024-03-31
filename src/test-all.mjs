@@ -9,17 +9,19 @@ import {
  * @param {*} t
  * @param {Master} driver
  * @param {Object|string} options
+ * @param {string} expected driver name
  */
-export async function testInitializeAndReopen(t, driver, options) {
+export async function testInitializeAndReopen(t, driver, options, name) {
+  t.is(driver.name, name, "name");
   const master = await driver.initialize(options);
 
   t.truthy(master);
-  t.is(master.description,options.description, "description");
+  t.is(master.description, options.description, "description");
   //t.truthy(master.context);
   t.is(master.schemaVersion, SCHEMA_VERSION_CURRENT);
 
   const categories = [];
-  for await (const c of master.categories(master.context)) {
+  for await (const c of master.categories()) {
     categories.push(c);
   }
   t.deepEqual(categories, []);
