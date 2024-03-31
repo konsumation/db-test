@@ -14,9 +14,9 @@ export async function testRestoreUnsupportedVersion(t, driver, options) {
     await master.fromText(input);
     t.fail("should throw");
   } catch (e) {
-    t.true(e.message.match(/Unsupported schema version/));
+    t.truthy(e.message.match(/Unsupported schema version/));
   }
-};
+}
 
 export async function testRestoreVersion2(t, driver, options) {
   const master = await driver.initialize(options);
@@ -78,6 +78,7 @@ export async function testRestoreVersion3(t, driver, options) {
   for await (const m of categories[0].meters(master.context)) {
     meters.push(m);
   }
+
   t.deepEqual(
     meters.map(m => m.name),
     ["M-0", "M-1"]
