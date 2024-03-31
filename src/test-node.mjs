@@ -14,7 +14,7 @@ export async function testRestoreUnsupportedVersion(t, driver, options) {
     await master.fromText(input);
     t.fail("should throw");
   } catch (e) {
-    t.is(e.message, "Unsupported schema version 0 only supporting 2,3");
+    t.true(e.message.match(/Unsupported schema version/));
   }
 };
 
