@@ -56,7 +56,6 @@ export async function createData(master, categoryNames, meterNames) {
  * Create and test several Categories.
  * @param {*} t
  * @param {Master} master
- * @param {*} categoryFactory
  * @param {string[]} names
  * @param {Object} extraAttributes
  * @param {*} extraAsserts
@@ -65,7 +64,6 @@ export async function createData(master, categoryNames, meterNames) {
 export async function testCreateCategories(
   t,
   master,
-  categoryFactory,
   names,
   attributes,
   extraAsserts = async (t, category) => {}
@@ -74,7 +72,7 @@ export async function testCreateCategories(
 
   for (const name of names) {
     const description = `Category ${name}`;
-    const category = new categoryFactory({
+    const category = new master.constructor.factories.category({
       name,
       description,
       ...attributes
@@ -93,7 +91,6 @@ export async function testCreateCategories(
  * Create and test several Categories.
  * @param {*} t
  * @param {Master} master
- * @param {*} meterFactory
  * @param {string[]} names
  * @param {Object} attributes
  * @param {*} extraAsserts
@@ -102,7 +99,6 @@ export async function testCreateCategories(
 export async function testCreateMeters(
   t,
   master,
-  meterFactory,
   names,
   category,
   attributes,
@@ -112,7 +108,7 @@ export async function testCreateMeters(
 
   for (const name of names) {
     const description = `Meter ${name}`;
-    const meter = new meterFactory({
+    const meter = new master.constructor.factories.meter({
       name,
       description,
       category,
@@ -132,7 +128,6 @@ export async function testCreateMeters(
  * Create and test several Categories.
  * @param {*} t
  * @param {Master} master
- * @param {*} meterFactory
  * @param {string[]} names
  * @param {Object} attributes
  * @param {*} extraAsserts
@@ -141,7 +136,6 @@ export async function testCreateMeters(
 export async function testCreateNotes(
   t,
   master,
-  noteFactory,
   names,
   meter,
   attributes,
@@ -151,7 +145,7 @@ export async function testCreateNotes(
 
   for (const name of names) {
     const description = `Note ${name}`;
-    const note = new noteFactory({
+    const note = new master.constructor.factories.note({
       name,
       description,
       meter,
