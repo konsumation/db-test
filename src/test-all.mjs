@@ -36,18 +36,37 @@ export async function testInitializeAndReopen(t, driver, options, name) {
   t.falsy(master2.context);
 }
 
-export async function createData(master, categoryNames, meterNames) {
+export async function createData(
+  master,
+  categoryNames,
+  meterNames,
+  numberOfValues,
+  firstDate,
+  dateIncrement,
+  firstValue,
+  valueIncrement
+) {
   const context = master.context;
 
   for (const name of categoryNames) {
-    const category = await master.addCategory(context, {
+    const category = await master.addCategory({
       name,
       unit: "kWh",
       fractionalDigits: 3,
       description: "mains power"
     });
+    category.write(context);
     for (const name of meterNames) {
-      await category.addMeter(context, {});
+      const meter = await category.addMeter(context, { name });
+      meter.write(context);
+
+      for (let i = 0; i < numberOfValues; i++) {
+        await meter.writeValue(
+          context,
+          new Date(firstDate.getTime() + i * dateIncrement),
+          firstValue + i * valueIncrement
+        );
+      }
     }
   }
 }
