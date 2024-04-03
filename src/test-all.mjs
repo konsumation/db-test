@@ -206,7 +206,7 @@ function testAttributes(t, factory, values) {
       )
     );
 
-    t.deepEqual(object.attributeValues, values);
+    t.deepEqual(object.getAttributes(), values);
   }
 
   return object;
