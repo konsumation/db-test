@@ -1,4 +1,5 @@
 schemaVersion=3
+description=test dump
 
 [category "CAT-0"]
 description=mains power 0

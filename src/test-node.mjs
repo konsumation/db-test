@@ -15,8 +15,7 @@ export async function testRestoreUnsupportedVersion(t, driver, options) {
     t.fail("should throw");
   } catch (e) {
     t.truthy(e.message.match(/Unsupported schema version/));
-  }
-  finally {
+  } finally {
     await master.close();
   }
 }
@@ -53,7 +52,7 @@ export async function testRestoreVersion2(t, driver, options) {
     ["M-0", "M-1"]
   );
 
-    await master.close();
+  await master.close();
 }
 
 export async function testRestoreVersion3(t, driver, options) {
@@ -68,6 +67,8 @@ export async function testRestoreVersion3(t, driver, options) {
 
   t.is(statistics.category, 3, "# of categories");
   t.is(statistics.value, 3 * 10, "# of values");
+
+  t.is(master.description, "test dump");
 
   const categories = [];
   for await (const c of master.categories(master.context)) {
