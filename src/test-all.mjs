@@ -213,7 +213,7 @@ function testAttributes(t, factory, values) {
 }
 
 export function testCategoryConstructor(t, factory, extraValues) {
-  t.is(factory.typeName, "category", "typeName");
+  t.is(factory.type, "category", "type");
 
   testAttributes(t, factory, undefined);
 
@@ -226,7 +226,7 @@ export function testCategoryConstructor(t, factory, extraValues) {
 
   let o = new factory();
 
-  t.is(o.typeName, "category", "typeName");
+  t.is(o.type, "category", "type");
 
   t.is(
     o.fractionalDigits,
