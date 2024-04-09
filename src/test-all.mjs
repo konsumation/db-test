@@ -257,7 +257,7 @@ export function testNoteConstructor(t, factory, extraValues) {
   });
 }
 
-export async function testInserListValues(t, master, object, values) {
+export async function testInsertListValues(t, master, object, values) {
   for (const value of values) {
     await object.writeValue(master.context, value.date, value.value);
   }
