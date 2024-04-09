@@ -1,7 +1,8 @@
 import {
   Master,
   SCHEMA_VERSION_CURRENT,
-  fractionalDigits
+  fractionalDigits,
+  order
 } from "@konsumation/model";
 
 /**
@@ -221,6 +222,7 @@ export function testCategoryConstructor(t, factory, extraValues) {
     name: "CAT-constructor",
     description: "Category insert",
     fractionalDigits: fractionalDigits.default, // TODO without defaults
+    order: order.default,  // TODO without defaults
     ...extraValues
   });
 
