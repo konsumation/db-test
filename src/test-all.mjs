@@ -256,3 +256,18 @@ export function testNoteConstructor(t, factory, extraValues) {
     ...extraValues
   });
 }
+
+export async function testInserListValues(t, master, object, values) {
+  for (const value of values) {
+    await object.writeValue(master.context, value.date, value.value);
+  }
+
+  const r = [];
+  for await (const value of object.values(master.context)) {
+    r.push(value);
+  }
+
+ // console.log(values);
+
+  t.deepEqual(r, values);
+}
