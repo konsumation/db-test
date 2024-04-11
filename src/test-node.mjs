@@ -38,6 +38,14 @@ export async function testRestoreVersion2(t, driver, options) {
     categories.push(c);
   }
 
+  t.deepEqual(categories[0].toJSON(), {
+    name: "CAT-0",
+    description: 'mains power 0',
+    order: 1,
+    fractionalDigits: 2,
+    unit: "kWh"
+  });
+
   t.deepEqual(
     categories.map(c => c.name),
     ["CAT-0", "CAT-1", "CAT-2"]
@@ -74,6 +82,14 @@ export async function testRestoreVersion3(t, driver, options) {
   for await (const c of master.categories(master.context)) {
     categories.push(c);
   }
+
+  t.deepEqual(categories[0].toJSON(), {
+    name: "CAT-0",
+    description: 'mains power 0',
+    order: 1,
+    fractionalDigits: 2,
+    unit: "kWh"
+  });
 
   t.deepEqual(
     categories.map(c => c.name),
