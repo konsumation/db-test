@@ -10,6 +10,7 @@ fractionalDigits=2
 serial=1000
 unit=kWh
 fractionalDigits=2
+validFrom=2011-10-05T14:48:00.000Z
 
 1596181539.632 77.34
 1596181626.032 78.34
