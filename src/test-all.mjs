@@ -62,11 +62,10 @@ export async function createData(
       meter.write(context);
 
       for (let i = 0; i < numberOfValues; i++) {
-        await meter.writeValue(
-          context,
-          new Date(firstDate.getTime() + i * dateIncrement),
-          firstValue + i * valueIncrement
-        );
+        await meter.addValue(context, {
+          date: new Date(firstDate.getTime() + i * dateIncrement),
+          value: firstValue + i * valueIncrement
+        });
       }
     }
   }
@@ -222,7 +221,7 @@ export function testCategoryConstructor(t, factory, extraValues) {
     name: "CAT-constructor",
     description: "Category insert",
     fractionalDigits: fractionalDigits.default, // TODO without defaults
-    order: order.default,  // TODO without defaults
+    order: order.default, // TODO without defaults
     ...extraValues
   });
 
@@ -261,15 +260,13 @@ export function testNoteConstructor(t, factory, extraValues) {
 
 export async function testInsertListValues(t, master, object, values) {
   for (const value of values) {
-    await object.writeValue(master.context, value.date, value.value);
+    await object.addValue(master.context, value);
   }
 
   const r = [];
   for await (const value of object.values(master.context)) {
     r.push(value);
   }
-
- // console.log(values);
 
   t.deepEqual(r, values);
 }
