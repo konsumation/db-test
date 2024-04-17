@@ -62,10 +62,11 @@ export async function createData(
       meter.write(context);
 
       for (let i = 0; i < numberOfValues; i++) {
-        await meter.addValue(context, {
+        const value = meter.addValue(context,{
           date: new Date(firstDate.getTime() + i * dateIncrement),
           value: firstValue + i * valueIncrement
         });
+        value.write(context);
       }
     }
   }
@@ -144,7 +145,7 @@ export async function testCreateMeters(
 }
 
 /**
- * Create and test several Categories.
+ * Create and test several Notes.
  * @param {*} t
  * @param {Master} master
  * @param {string[]} names
@@ -258,15 +259,27 @@ export function testNoteConstructor(t, factory, extraValues) {
   });
 }
 
+export function testValueConstructor(t, factory, extraValues) {
+  testAttributes(t, factory, undefined);
+
+  testAttributes(t, factory, {
+    value: 1.2,
+    ...extraValues
+  });
+}
+
 export async function testInsertListValues(t, master, object, values) {
+  const written = [];
   for (const value of values) {
-    await object.addValue(master.context, value);
+    const v = object.addValue(master.context, value);
+    await v.write(master.context);
+    written.push(v.getAttributes());
   }
 
   const r = [];
   for await (const value of object.values(master.context)) {
-    r.push(value);
+    r.push(value.getAttributes());
   }
 
-  t.deepEqual(r, values);
+  t.deepEqual(r, written);
 }
