@@ -50,7 +50,7 @@ export async function createData(
   const context = master.context;
 
   for (const name of categoryNames) {
-    const category = await master.addCategory({
+    const category = await master.addCategory(context, {
       name,
       unit: "kWh",
       fractionalDigits: 3,
@@ -62,7 +62,7 @@ export async function createData(
       meter.write(context);
 
       for (let i = 0; i < numberOfValues; i++) {
-        const value = meter.addValue(context,{
+        const value = meter.addValue(context, {
           date: new Date(firstDate.getTime() + i * dateIncrement),
           value: firstValue + i * valueIncrement
         });
