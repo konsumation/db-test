@@ -1,6 +1,6 @@
 [![npm](https://img.shields.io/npm/v/@konsumation/db-test.svg)](https://www.npmjs.com/package/@konsumation/db-test)
-[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Typed with TypeScript](https://flat.badgen.net/badge/icon/Typed?icon=typescript\&label\&labelColor=blue\&color=555555)](https://typescriptlang.org)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![bundlejs](https://deno.bundlejs.com/?q=@konsumation/db-test\&badge=detailed)](https://bundlejs.com/?q=@konsumation/db-test)
 [![downloads](http://img.shields.io/npm/dm/@konsumation/db-test.svg?style=flat-square)](https://npmjs.org/package/@konsumation/db-test)
 [![GitHub Issues](https://img.shields.io/github/issues/konsumation/db-test.svg?style=flat-square)](https://github.com/konsumation/db-test/issues)
