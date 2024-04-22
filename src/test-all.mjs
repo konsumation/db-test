@@ -1,5 +1,8 @@
 import {
   Master,
+  Category,
+  Meter,
+  Note,
   SCHEMA_VERSION_CURRENT,
   fractionalDigits,
   order
@@ -10,7 +13,7 @@ import {
  * @param {*} t
  * @param {Master} driver
  * @param {Object|string} options
- * @param {string} expected driver name
+ * @param {string} name driver name
  */
 export async function testInitializeAndReopen(t, driver, options, name) {
   t.is(driver.name, name, "name");
@@ -77,7 +80,7 @@ export async function createData(
  * @param {*} t
  * @param {Master} master
  * @param {string[]} names
- * @param {Object} extraAttributes
+ * @param {Object} attributes
  * @param {*} extraAsserts
  * @returns {Promise<Category[]>}
  */
