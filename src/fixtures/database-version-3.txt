@@ -1,17 +1,15 @@
-schemaVersion=3
 description=test dump
-
+schemaVersion=3
 [category "CAT-0"]
 description=mains power 0
-unit=kWh
 fractionalDigits=2
-
+order=1
+unit=kWh
 [meter "M-0"]
+fractionalDigits=2
 serial=1000
 unit=kWh
-fractionalDigits=2
 validFrom=2011-10-05T14:48:00.000Z
-
 1596181539.632 77.34
 1596181626.032 78.34
 1596181712.432 79.34
@@ -22,22 +20,18 @@ validFrom=2011-10-05T14:48:00.000Z
 1596182144.432 84.34
 1596182230.832 85.34
 1596182317.232 86.34
-
 [note "001596181798832"]
 description=blizzard
-
 [meter "M-1"]
-serial=2000
 fractionalDigits=3
-
+serial=2000
 [category "CAT-1"]
 description=mains power 1
-
+order=2
 [meter "M-1"]
+fractionalDigits=2
 serial=3000
 unit=kWh
-fractionalDigits=2
-
 1596181539.634 78.34
 1596181626.034 79.34
 1596181712.434 80.34
@@ -48,15 +42,13 @@ fractionalDigits=2
 1596182144.434 85.34
 1596182230.834 86.34
 1596182317.234 87.34
-
 [category "CAT-2"]
 description=mains power 2
-
+order=3
 [meter "M-3"]
+fractionalDigits=2
 serial=4000
 unit=kWh
-fractionalDigits=2
-
 1596181539.635 79.34
 1596181626.035 80.34
 1596181712.435 81.34
