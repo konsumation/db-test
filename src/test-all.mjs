@@ -109,6 +109,7 @@ export async function testCreateCategories(
 
   return categories;
 }
+
 export async function testWriteReadUpdateDeleteCategories(t, master) {
   const context = master.context;
   const categories = await testCreateCategories(
@@ -116,7 +117,6 @@ export async function testWriteReadUpdateDeleteCategories(t, master) {
     master,
     Array.from({ length: 10 }, (_, i) => `CAT-${i}`),
     { fractionalDigits: 3, unit: "kWh" }
-    // (t, category) => console.log(category)
   );
 
   t.true(categories.length >= 10);
@@ -268,12 +268,12 @@ export function testCategoryConstructor(t, factory, extraValues) {
     ...extraValues
   });
 
-  let o = new factory();
+  const category = new factory();
 
-  t.is(o.type, "category", "type");
+  t.is(category.type, "category", "type");
 
   t.is(
-    o.fractionalDigits,
+    category.fractionalDigits,
     fractionalDigits.default,
     "default fractionalDigits"
   );
