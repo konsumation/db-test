@@ -109,6 +109,37 @@ export async function testCreateCategories(
 
   return categories;
 }
+export async function testWriteReadDeleteCategoriest(t,master) {
+  const context = master.context;
+  const categories = await testCreateCategories(
+    t,
+    master,
+    Array.from({ length: 10 }, (_, i) => `CAT-${i}`),
+    { fractionalDigits: 3, unit: "kWh" }
+    // (t, category) => console.log(category)
+  );
+
+  t.true(categories.length >= 10);
+  t.is(categories[0].unit, "kWh");
+  t.is(categories[0].fractionalDigits, 3);
+
+  let category = await master.category(context, "CAT-7");
+  t.is(category.name, "CAT-7");
+  t.is(category.unit, "kWh");
+  t.is(category.fractionalDigits, 3);
+
+  category = await master.category(context, "CAT-9");
+  await category.delete(context);
+
+  const lines = [];
+  for await (const line of master.text(context)) {
+    lines.push(line);
+  }
+
+  t.true(lines.length >= 5 * 10);
+
+  await master.close();
+}
 
 /**
  * Create and test several Categories.
