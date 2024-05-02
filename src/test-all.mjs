@@ -109,7 +109,7 @@ export async function testCreateCategories(
 
   return categories;
 }
-export async function testWriteReadDeleteCategoriest(t,master) {
+export async function testWriteReadUpdateDeleteCategories(t, master) {
   const context = master.context;
   const categories = await testCreateCategories(
     t,
@@ -127,6 +127,14 @@ export async function testWriteReadDeleteCategoriest(t,master) {
   t.is(category.name, "CAT-7");
   t.is(category.unit, "kWh");
   t.is(category.fractionalDigits, 3);
+
+  category.description = "update";
+  category.name = "bla";
+  await category.write(context);
+
+  category = await master.category(context, "bla");
+  t.is(category.name, "bla");
+  t.is(category.description, "update");
 
   category = await master.category(context, "CAT-9");
   await category.delete(context);
