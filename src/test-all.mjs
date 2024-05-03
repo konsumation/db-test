@@ -303,7 +303,6 @@ export function testMeterConstructor(t, factory, extraValues) {
     serial: "12345",
     description: `meter for category CAT1`,
     unit: "kwh",
-    fractionalDigits: 2,
     validFrom: new Date(),
     ...extraValues
   });
