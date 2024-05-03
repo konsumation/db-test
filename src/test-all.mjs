@@ -223,15 +223,22 @@ export async function testCreateNotes(
   return notes;
 }
 
+/**
+ * 
+ * @param {*} t 
+ * @param {*} factory 
+ * @param {*} values 
+ * @returns {Object} initiated from factory and values.
+ */
 function testAttributes(t, factory, values) {
   const object = new factory(values);
 
-  const inverseMapping = Object.fromEntries(
-    Object.entries(factory.attributeNameMapping).map(kv => [kv[1], kv[0]])
-  );
-
   if (values) {
-    for (let [k, v] of Object.entries(values)) {
+    const inverseMapping = Object.fromEntries(
+      Object.entries(factory.attributeNameMapping).map(kv => [kv[1], kv[0]])
+    );
+  
+    for (const [k, v] of Object.entries(values)) {
       if (inverseMapping[k]) {
         t.deepEqual(
           object[inverseMapping[k]],
@@ -249,7 +256,19 @@ function testAttributes(t, factory, values) {
       )
     );
 
-    t.deepEqual(object.getAttributes(), values);
+    const ov = object.getAttributes();
+    
+    for(const [k,v] of Object.entries(ov)) {
+      if(factory.attributes[k]?.default === v) {
+        delete ov[k];
+      }
+
+      if(inverseMapping[k] ) {
+        delete ov[k];
+      }
+    }
+
+    t.deepEqual(ov, values);
   }
 
   return object;
@@ -260,11 +279,9 @@ export function testCategoryConstructor(t, factory, extraValues) {
 
   testAttributes(t, factory, undefined);
 
-  const object = testAttributes(t, factory, {
+  testAttributes(t, factory, {
     name: "CAT-constructor",
     description: "Category insert",
-    fractionalDigits: fractionalDigits.default, // TODO without defaults
-    order: order.default, // TODO without defaults
     ...extraValues
   });
 
