@@ -123,7 +123,6 @@ export async function testWriteReadUpdateDeleteCategories(t, master) {
   t.is(categories[0].fractionalDigits, 3);
 
   let category = await master.category(context, "CAT-7");
-  console.log(category);
   t.is(category.name, "CAT-7");
   t.is(category.unit, "kWh");
   t.is(category.fractionalDigits, 3);
